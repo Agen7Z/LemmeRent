@@ -6,7 +6,6 @@ import 'swiper/css/bundle';
 import { motion } from 'framer-motion';
 import { FaHome, FaSearch, FaShieldAlt, FaHeadset, FaLock, FaArrowRight, FaBuilding, FaMapMarkerAlt, FaBed, FaBath } from 'react-icons/fa';
 import ListingItem from '../Component/ListingItem';
-import TawkChat from '../Component/Twakchat';
 
 export default function Home() {
   const [listings, setListings] = useState({
@@ -43,8 +42,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      <TawkChat />
-
       {/* Hero Section */}
       <section className="relative h-[80vh] text-white">
         <Swiper

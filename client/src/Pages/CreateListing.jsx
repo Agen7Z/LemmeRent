@@ -64,9 +64,9 @@ function CreateListing() {
         const uploadPromises = filesArray.map((file) => {
           const formData = new FormData();
           formData.append('file', file);
-          formData.append('upload_preset', 'my_unsigned_preset');
+          formData.append('upload_preset', 'upload_preset');
           return axios
-            .post(`https://api.cloudinary.com/v1_1/azrael21/image/upload`, formData)
+            .post(`https://api.cloudinary.com/v1_1/project-agent/image/upload`, formData)
             .then((res) => res.data.secure_url);
         });
 

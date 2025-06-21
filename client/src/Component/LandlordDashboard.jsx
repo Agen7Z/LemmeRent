@@ -67,10 +67,10 @@ function LandlordDashboard() {
       setUploadingImage(true);
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('upload_preset', 'my_unsigned_preset');
+      formData.append('upload_preset', 'upload_preset');
 
       const res = await axios.post(
-        `https://api.cloudinary.com/v1_1/azrael21/image/upload`,
+        `https://api.cloudinary.com/v1_1/project-agent/image/upload`,
         formData
       );
       const newImageUrl = res.data.secure_url;

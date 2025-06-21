@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import {
   updateUserStart,
   updateUserSuccess,
@@ -17,7 +18,8 @@ import ShiftingBookings from './ShiftingBookings';
 import PaymentHistory from './PaymentHistory';
 import {
   FaUser, FaEnvelope, FaLock, FaCheck, FaTrash, FaSignOutAlt,
-  FaCalendarAlt, FaTruck, FaTimes, FaSpinner, FaEdit, FaCreditCard
+  FaCalendarAlt, FaTruck, FaTimes, FaSpinner, FaEdit, FaCreditCard,
+  FaHome, FaPlus
 } from 'react-icons/fa';
 
 function UserDashboard() {
@@ -29,6 +31,7 @@ function UserDashboard() {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [formSuccess, setFormSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -40,10 +43,10 @@ function UserDashboard() {
       setUploadingImage(true);
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('upload_preset', 'my_unsigned_preset');
+      formData.append('upload_preset', 'upload_preset');
 
       const res = await axios.post(
-        `https://api.cloudinary.com/v1_1/azrael21/image/upload`,
+        `https://api.cloudinary.com/v1_1/project-agent/image/upload`,
         formData
       );
       const newImageUrl = res.data.secure_url;
@@ -164,6 +167,13 @@ function UserDashboard() {
             label="Profile"
             isActive={activeSection === 'profile'}
             onClick={() => setActiveSection('profile')}
+          />
+
+          <SidebarLink
+            icon={<FaPlus />}
+            label="Create Listing"
+            onClick={() => navigate('/create-listing')}
+            className="text-green-600 hover:text-green-700"
           />
 
           {!currentUser.isAdmin && (
@@ -350,6 +360,24 @@ function UserDashboard() {
 
             <div className="mt-8 pt-6 border-t border-gray-200">
               <h3 className="text-lg font-medium text-gray-800 mb-4">Account Actions</h3>
+              
+              {/* Create Listing Section */}
+              <div className="mb-6 p-6 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-lg">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="text-lg font-semibold text-green-800 mb-2">Ready to List Your Property?</h4>
+                    <p className="text-green-700 text-sm">Create your first listing and start earning from your property</p>
+                  </div>
+                  <button
+                    onClick={() => navigate('/create-listing')}
+                    className="flex items-center px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors shadow-md"
+                  >
+                    <FaPlus className="mr-2" />
+                    Create Listing
+                  </button>
+                </div>
+              </div>
+              
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                 <button
                   onClick={handleDeleteUser}
